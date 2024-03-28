@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Exemplo de tema diurno/noturno</title>
+  <style>
+    body {
+      font-family: monospace;
+      text-align: center;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      height: 100vh; /* Define a altura do corpo para ocupar 100% da altura da janela */
+    }
+
+    /* Tema diurno */
+    .theme-day {
+      background-color: #0992ee;
+      background-image: url(desktop-wallpaper-sky-blue-sky.jpg);
+      background-position: center;
+      background-size: cover;
+      color: #000;
+    }
+
+    /* Tema noturno */
+    .theme-night {
+      background-color: #161F30;
+      background-image: url(R.jpeg);
+      color: #fff;
+    }
+
+    #clock {
+      font-size: 100px; /* Aumenta o tamanho do relógio */
+      margin-top: 20px;
+      font-style: inherit;
+      position: absolute;
+      top: 50%; /* Centraliza verticalmente */
+      left: 50%; /* Centraliza horizontalmente */
+      transform: translate(-50%, -50%); /* Centraliza precisamente */
+      z-index: 1; /* Garante que o relógio esteja acima dos elementos de imagem */
+    }
+
+    .sun, .moon {
+      position: absolute;
+      top: 20%; /* Posição em relação ao pai */
+      left: 50%; /* Centraliza horizontalmente */
+      transform: translate(-50%, -50%); /* Centraliza precisamente */
+      width: 250px; /* Define a largura da imagem */
+      height: auto; /* Mantém a proporção da imagem */
+      display: none; /* Esconde a imagem por padrão */
+      z-index: 2; /* Coloca as imagens acima do relógio */
+    }
+
+    .theme-day .sun {
+      display: block; /* Exibe o sol durante o dia */
+    }
+
+    .theme-night .moon {
+      display: block; /* Exibe a lua durante a noite */
+    }
+  </style>
+  <script>
+    function setTheme() {
+      var now = new Date();
+      var hour = now.getHours();
+      var body = document.getElementsByTagName('body')[0];
+      if (hour >= 6 && hour < 18) {
+        body.className = 'theme-day';
+      } else {
+        body.className = 'theme-night';
+      }
+    }
+
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      hours = (hours < 10) ? "0" + hours : hours;
+      minutes = (minutes < 10) ? "0" + minutes : minutes;
+      seconds = (seconds < 10) ? "0" + seconds : seconds;
+      var timeString = hours + ":" + minutes + ":" + seconds;
+      document.getElementById('clock').innerHTML = timeString;
+      setTimeout(updateClock, 1000);
+    }
+  </script>
+</head>
+
+<body onload="setTheme(); updateClock()">
+  <div id="clock"></div>
+  <img src="./1585403.png" alt="Sun" class="sun">
+  <img src="./OIP__3_-removebg-preview.png" alt="Moon" class="moon">
+</body>
+
+</html>
